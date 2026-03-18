@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #ffffff;
+      --surface:   #f5f5f5;
+      --surface2:  #ececec;
+      --border:    #d8d8d8;
+      --border2:   #bebebe;
+      --text:      #111111;
+      --muted:     #888888;
+      --muted2:    #aaaaaa;
+      --sidebar-w: 220px;
+    }
+
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+
+    .shell { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      background: var(--surface); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      position: sticky; top: 0; height: 100vh; padding: 2.5rem 0;
+    }
+    .sidebar-brand { padding: 0 1.6rem 2.2rem; border-bottom: 1px solid var(--border); }
+    .sidebar-brand .initials { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--text); line-height: 1; letter-spacing: -0.02em; }
+    .sidebar-brand .tagline { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 0.45rem; }
+
+    nav { padding: 1.6rem 0; flex: 1; }
+    .nav-label { font-family: 'DM Mono', monospace; font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted2); padding: 0 1.6rem; margin-bottom: 0.6rem; }
+    .nav-link { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 1.6rem; cursor: pointer; font-size: 0.84rem; font-weight: 400; color: var(--muted); border-left: 2px solid transparent; user-select: none; transition: background 0.15s, color 0.15s; }
+    .nav-link .icon { font-size: 0.8rem; width: 1rem; text-align: center; flex-shrink: 0; }
+    .nav-link:hover { background: var(--surface2); color: var(--text); }
+    .nav-link.active { color: var(--text); border-left-color: var(--text); background: var(--surface2); font-weight: 500; }
+
+    .sidebar-footer { padding: 1.4rem 1.6rem 0; border-top: 1px solid var(--border); }
+    .socials { display: flex; gap: 1rem; }
+    .socials a { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.15s; }
+    .socials a:hover { color: var(--text); }
+
+    /* ── Main ── */
+    .main { flex: 1; overflow-y: auto; }
+    .page { display: none; padding: 4rem 5vw 5rem; max-width: 820px; }
+    .page.active { display: block; animation: fadeUp 0.35s ease both; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Shared header */
+    .section-header { margin-bottom: 2.8rem; }
+    .section-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+    .section-desc { margin-top: 0.7rem; font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── HOME ── */
+    .home-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .home-name { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 600; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.6rem; }
+    .home-name em { font-style: italic; color: var(--muted); }
+    .home-intro { font-size: 1rem; line-height: 1.85; color: #444; max-width: 540px; margin-bottom: 2rem; }
+    .home-divider { width: 2.5rem; height: 1px; background: var(--border2); margin-bottom: 2rem; }
+    .home-stats { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 2.4rem; }
+    .stat-item .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; line-height: 1; }
+    .stat-item .label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 1px; background: var(--border); }
+    .exp-item { padding-left: 2.2rem; padding-bottom: 2.6rem; position: relative; }
+    .exp-item:last-child { padding-bottom: 0; }
+    .exp-item::before { content: ''; position: absolute; left: -4px; top: 0.45rem; width: 9px; height: 9px; border-radius: 50%; background: var(--text); border: 2px solid var(--bg); box-shadow: 0 0 0 1px var(--border2); }
+    .exp-period { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
+    .exp-role { font-size: 0.98rem; font-weight: 500; margin-bottom: 0.12rem; }
+    .exp-company { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.7rem; font-style: italic; }
+    .exp-desc { font-size: 0.84rem; color: #555; line-height: 1.75; }
+
+    /* ── PROJECTS ── */
+    .proj-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 2rem; overflow-x: auto; }
+    .proj-tab { padding: 0.65rem 1.2rem; font-size: 0.82rem; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.15s, border-color 0.15s; margin-bottom: -1px; user-select: none; }
+    .proj-tab:hover { color: var(--text); }
+    .proj-tab.active { color: var(--text); border-bottom-color: var(--text); font-weight: 500; }
+    .proj-panel { display: none; }
+    .proj-panel.active { display: flex; gap: 2.5rem; align-items: flex-start; animation: fadeUp 0.3s ease both; }
+
+    .proj-image { width: 280px; flex-shrink: 0; aspect-ratio: 16/10; background: var(--surface); border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .proj-image svg { width: 100%; height: 100%; }
+
+    .proj-info { flex: 1; min-width: 0; }
+    .proj-tag { font-family: 'DM Mono', monospace; font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .proj-name { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 600; margin-bottom: 0.9rem; letter-spacing: -0.01em; }
+    .proj-desc { font-size: 0.86rem; color: #555; line-height: 1.8; margin-bottom: 1.2rem; }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+    .stack-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; padding: 0.22rem 0.55rem; border: 1px solid var(--border2); color: var(--muted); background: var(--surface); }
+    .proj-link { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--text); padding-bottom: 1px; transition: opacity 0.15s; }
+    .proj-link:hover { opacity: 0.45; }
+
+    /* ── READING ── */
+    .reading-intro { font-size: 0.92rem; color: #555; line-height: 1.85; max-width: 580px; margin-bottom: 2.5rem; }
+    .reading-section { margin-bottom: 2.4rem; }
+    .reading-section-title { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .book-entry-wrap { padding: 0.75rem 0; border-bottom: 1px solid var(--surface2); }
+    .book-entry-wrap:last-child { border-bottom: none; }
+    .book-meta { display: flex; align-items: baseline; gap: 1rem; }
+    .book-title-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; flex: 1; }
+    .book-author-text { font-size: 0.78rem; color: var(--muted); flex-shrink: 0; }
+    .book-note-text { margin-top: 0.2rem; font-size: 0.8rem; color: #777; line-height: 1.65; }
+
+    /* ── BLOGS ── */
+    .blog-list { display: flex; flex-direction: column; }
+    .blog-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+    .blog-item:first-child { border-top: 1px solid var(--border); }
+    .blog-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.45rem; }
+    .blog-date { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted2); letter-spacing: 0.08em; }
+    .blog-cat { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .blog-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+    .blog-excerpt { font-size: 0.85rem; color: #666; line-height: 1.72; max-width: 560px; }
+
+    .main::-webkit-scrollbar { width: 4px; }
+    .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="initials">JD</div>
+      <div class="tagline">Software Engineer</div>
+    </div>
+    <nav>
+      <div class="nav-label">Menu</div>
+      <div class="nav-link active" data-page="home"><span class="icon">⌂</span> Home</div>
+      <div class="nav-link" data-page="experience"><span class="icon">◈</span> Experience</div>
+      <div class="nav-link" data-page="projects"><span class="icon">◻</span> Projects</div>
+      <div class="nav-link" data-page="reading"><span class="icon">◎</span> Reading Place</div>
+      <div class="nav-link" data-page="blogs"><span class="icon">✦</span> Blogs</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="socials">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">X</a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- HOME -->
+    <section class="page active" id="page-home">
+      <div class="home-eyebrow">Hello, I'm</div>
+      <h1 class="home-name">Jane <em>Doe</em></h1>
+      <p class="home-intro">
+        I build things for the web — occasionally elegant, always thoughtful. I care about systems that are honest, interfaces that are kind, and code that future-me won't resent. Currently exploring the intersection of distributed systems and human-centred design.
+      </p>
+      <div class="home-divider"></div>
+      <p class="home-intro" style="font-size:0.9rem; margin-bottom:0;">
+        When I'm not pushing commits, I'm annotating books, hunting for a perfect cup of pour-over, or convincing myself that <em>one more</em> side project is a good idea. This is my small corner of the internet — feel free to wander.
+      </p>
+      <div class="home-stats">
+        <div class="stat-item"><div class="num">4+</div><div class="label">Years experience</div></div>
+        <div class="stat-item"><div class="num">12</div><div class="label">Projects shipped</div></div>
+        <div class="stat-item"><div class="num">38</div><div class="label">Books this year</div></div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="page" id="page-experience">
+      <div class="section-header">
+        <div class="section-tag">Career</div>
+        <h2 class="section-title">Experience</h2>
+        <p class="section-desc">A timeline of places I've worked and things I've built professionally.</p>
+      </div>
+      <div class="timeline">
+        <div class="exp-item">
+          <div class="exp-period">2023 — Present</div>
+          <div class="exp-role">Senior Software Engineer</div>
+          <div class="exp-company">Acme Corp · Full-time</div>
+          <div class="exp-desc">Leading the platform team responsible for the core API layer serving millions of daily requests. Drove a 40% latency reduction through strategic caching and query optimisation. Mentoring two junior engineers and owning the on-call rotation.</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-period">2021 — 2023</div>
+          <div class="exp-role">Software Engineer</div>
+          <div class="exp-company">Bright Labs · Full-time</div>
+          <div class="exp-desc">Built and maintained three customer-facing React applications. Collaborated closely with design to ship a full design-system overhaul and reduce component duplication by 60%. Introduced automated end-to-end testing that cut regression bugs in half.</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-period">2020 — 2021</div>
+          <div class="exp-role">Junior Developer</div>
+          <div class="exp-company">Studio Nine · Contract</div>
+          <div class="exp-desc">Developed marketing websites and internal tooling for a creative agency. Gained hands-on experience with CMS integrations, performance budgets, and client communication.</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-period">2019</div>
+          <div class="exp-role">Engineering Intern</div>
+          <div class="exp-company">Nexus Technology · Internship</div>
+          <div class="exp-desc">Summer internship focused on data pipeline automation. Wrote Python scripts that reduced manual reporting effort by 8 hours per week.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="page" id="page-projects">
+      <div class="section-header">
+        <div class="section-tag">Work</div>
+        <h2 class="section-title">Projects</h2>
+        <p class="section-desc">Selected side-projects and open-source work I'm proud of.</p>
+      </div>
+
+      <div class="proj-tabs">
+        <div class="proj-tab active" data-proj="inkwell">Inkwell CLI</div>
+        <div class="proj-tab" data-proj="cartograph">Cartograph</div>
+        <div class="proj-tab" data-proj="tempo">Tempo</div>
+        <div class="proj-tab" data-proj="palimpsest">Palimpsest</div>
+      </div>
+
+      <div class="proj-panel active" id="proj-inkwell">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#f0f0f0"/>
+            <rect x="18" y="22" width="244" height="131" rx="3" fill="#e4e4e4"/>
+            <rect x="18" y="22" width="244" height="18" rx="3" fill="#d4d4d4"/>
+            <circle cx="30" cy="31" r="4" fill="#bbb"/>
+            <circle cx="44" cy="31" r="4" fill="#bbb"/>
+            <circle cx="58" cy="31" r="4" fill="#bbb"/>
+            <rect x="28" y="52" width="70" height="5" rx="2" fill="#aaa"/>
+            <rect x="28" y="64" width="180" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="73" width="160" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="82" width="190" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="95" width="55" height="4" rx="2" fill="#bbb"/>
+            <rect x="28" y="104" width="140" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="113" width="120" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="122" width="155" height="4" rx="2" fill="#ccc"/>
+            <rect x="240" y="52" width="14" height="80" rx="2" fill="#d0d0d0"/>
+            <rect x="240" y="52" width="14" height="22" rx="2" fill="#aaa"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Open Source · CLI Tool</div>
+          <div class="proj-name">Inkwell CLI</div>
+          <div class="proj-desc">A fast command-line journaling tool with Markdown support, full-text search, and encrypted storage. Built for writers who live in the terminal and want zero friction between thought and text.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">Rust</span>
+            <span class="stack-tag">SQLite</span>
+            <span class="stack-tag">AES-256</span>
+          </div>
+          <a href="#" class="proj-link">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="proj-panel" id="proj-cartograph">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#f0f0f0"/>
+            <circle cx="140" cy="87" r="12" fill="#888"/>
+            <circle cx="68"  cy="52" r="8"  fill="#aaa"/>
+            <circle cx="212" cy="48" r="8"  fill="#aaa"/>
+            <circle cx="52"  cy="128" r="8" fill="#aaa"/>
+            <circle cx="228" cy="128" r="8" fill="#aaa"/>
+            <circle cx="140" cy="152" r="7" fill="#bbb"/>
+            <circle cx="100" cy="38"  r="6" fill="#bbb"/>
+            <line x1="140" y1="87" x2="68"  y2="52"  stroke="#ccc" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="212" y2="48"  stroke="#ccc" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="52"  y2="128" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="228" y2="128" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="140" y2="152" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="68"  y1="52" x2="100" y2="38"  stroke="#ddd" stroke-width="1"/>
+            <line x1="68"  y1="52" x2="212" y2="48"  stroke="#ddd" stroke-width="1"/>
+            <line x1="52"  y1="128" x2="140" y2="152" stroke="#ddd" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Web App · Knowledge Tools</div>
+          <div class="proj-name">Cartograph</div>
+          <div class="proj-desc">A personal knowledge-mapping tool that turns reading notes into an interactive graph. Visualise how ideas connect across books, articles, and your own writing. Export to Obsidian or Notion in one click.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">Next.js</span>
+            <span class="stack-tag">D3</span>
+            <span class="stack-tag">Postgres</span>
+          </div>
+          <a href="#" class="proj-link">Live Demo →</a>
+        </div>
+      </div>
+
+      <div class="proj-panel" id="proj-tempo">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#f0f0f0"/>
+            <rect x="18" y="22" width="244" height="36" rx="3" fill="#e4e4e4"/>
+            <rect x="28" y="33" width="65" height="5" rx="2" fill="#bbb"/>
+            <rect x="192" y="30" width="58" height="12" rx="3" fill="#999"/>
+            <rect x="18" y="68" width="116" height="85" rx="3" fill="#e4e4e4"/>
+            <rect x="28" y="80" width="55" height="5" rx="2" fill="#bbb"/>
+            <rect x="28" y="93" width="90" height="32" rx="3" fill="#d8d8d8"/>
+            <rect x="28" y="133" width="70" height="4" rx="2" fill="#ccc"/>
+            <rect x="146" y="68" width="116" height="38" rx="3" fill="#e4e4e4"/>
+            <rect x="156" y="80" width="55" height="5" rx="2" fill="#bbb"/>
+            <rect x="156" y="91" width="80" height="4" rx="2" fill="#ccc"/>
+            <rect x="146" y="115" width="116" height="38" rx="3" fill="#e4e4e4"/>
+            <rect x="156" y="127" width="55" height="5" rx="2" fill="#bbb"/>
+            <rect x="156" y="138" width="65" height="4" rx="2" fill="#ccc"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">API · Productivity</div>
+          <div class="proj-name">Tempo</div>
+          <div class="proj-desc">A lightweight time-tracking API designed to slot into any workflow without friction. Supports webhooks, team workspaces, project tagging, and a generous free tier for solo developers.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">Go</span>
+            <span class="stack-tag">Redis</span>
+            <span class="stack-tag">Docker</span>
+          </div>
+          <a href="#" class="proj-link">Read the Docs →</a>
+        </div>
+      </div>
+
+      <div class="proj-panel" id="proj-palimpsest">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#f0f0f0"/>
+            <rect x="18" y="22" width="168" height="131" rx="3" fill="#e4e4e4"/>
+            <rect x="28" y="36" width="90" height="5" rx="2" fill="#bbb"/>
+            <rect x="28" y="48" width="145" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="57" width="130" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="66" width="148" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="79" width="140" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="88" width="115" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="97" width="150" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="110" width="135" height="4" rx="2" fill="#ccc"/>
+            <rect x="28" y="119" width="120" height="4" rx="2" fill="#ccc"/>
+            <rect x="196" y="30" width="68" height="48" rx="3" fill="#d8d8d8"/>
+            <rect x="204" y="40" width="52" height="3" rx="1" fill="#bbb"/>
+            <rect x="204" y="48" width="44" height="3" rx="1" fill="#bbb"/>
+            <rect x="204" y="56" width="48" height="3" rx="1" fill="#bbb"/>
+            <rect x="196" y="90" width="68" height="48" rx="3" fill="#d8d8d8"/>
+            <rect x="204" y="100" width="52" height="3" rx="1" fill="#bbb"/>
+            <rect x="204" y="108" width="44" height="3" rx="1" fill="#bbb"/>
+            <rect x="204" y="116" width="48" height="3" rx="1" fill="#bbb"/>
+            <line x1="190" y1="55" x2="196" y2="55" stroke="#bbb" stroke-width="1" stroke-dasharray="2,2"/>
+            <line x1="190" y1="93" x2="196" y2="114" stroke="#bbb" stroke-width="1" stroke-dasharray="2,2"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Experiment · AI</div>
+          <div class="proj-name">Palimpsest</div>
+          <div class="proj-desc">An AI writing companion that generates thoughtful marginal annotations for your drafts — like having a careful reader always in the margins. Surfaces blind spots, loose logic, and questions worth asking.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">Claude API</span>
+          </div>
+          <a href="#" class="proj-link">View Project →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- READING PLACE -->
+    <section class="page" id="page-reading">
+      <div class="section-header">
+        <div class="section-tag">Bookshelf</div>
+        <h2 class="section-title">Reading Place</h2>
+      </div>
+      <p class="reading-intro">
+        Books are the best conversations I have. Below is a running record of what I'm reading, what I've loved, and the occasional honest note on why it mattered. I read across fiction, systems thinking, philosophy, and wherever curiosity drags me next.
+      </p>
+
+      <div class="reading-section">
+        <div class="reading-section-title">Currently Reading</div>
+        <div class="book-entry-wrap">
+          <div class="book-meta">
+            <div class="book-title-text">The Dispossessed</div>
+            <div class="book-author-text">Ursula K. Le Guin</div>
+          </div>
+          <div class="book-note-text">"The planet Anarres has no owners" — a sentence I keep returning to. Le Guin builds two worlds to ask what freedom actually costs.</div>
+        </div>
+        <div class="book-entry-wrap">
+          <div class="book-meta">
+            <div class="book-title-text">The Pragmatic Programmer</div>
+            <div class="book-author-text">Hunt & Thomas</div>
+          </div>
+          <div class="book-note-text">Re-reading after four years. Hits differently when you've made all the mistakes it warns you about.</div>
+        </div>
+      </div>
+
+      <div class="reading-section">
+        <div class="reading-section-title">Recently Finished</div>
+        <div class="book-entry-wrap">
+          <div class="book-meta">
+            <div class="book-title-text">Thinking in Systems</div>
+            <div class="book-author-text">Donella H. Meadows</div>
+          </div>
+          <div class="book-note-text">Changed how I read code, organisations, and arguments. Meadows writes with rare clarity about why things behave the way they do.</div>
+        </div>
+        <div class="book-entry-wrap">
+          <div class="book-meta">
+            <div class="book-title-text">A Pattern Language</div>
+            <div class="book-author-text">Christopher Alexander</div>
+          </div>
+          <div class="book-note-text">I think about this every time I design an API or lay out a component. The patterns feel obvious in hindsight. That's the point.</div>
+        </div>
+        <div class="book-entry-wrap">
+          <div class="book-meta">
+            <div class="book-title-text">Klara and the Sun</div>
+            <div class="book-author-text">Kazuo Ishiguro</div>
+          </div>
+          <div class="book-note-text">Quiet, patient, devastating. The best novel I've read about what it means to pay attention to someone.</div>
+        </div>
+      </div>
+
+      <div class="reading-section">
+        <div class="reading-section-title">On the Shelf</div>
+        <div class="book-entry-wrap">
+          <div class="book-meta">
+            <div class="book-title-text">Gödel, Escher, Bach</div>
+            <div class="book-author-text">Douglas Hofstadter</div>
+          </div>
+          <div class="book-note-text">Perpetually queued. This is the year. I have said this for three years.</div>
+        </div>
+        <div class="book-entry-wrap">
+          <div class="book-meta">
+            <div class="book-title-text">The Making of the Atomic Bomb</div>
+            <div class="book-author-text">Richard Rhodes</div>
+          </div>
+          <div class="book-note-text">Started it twice. Both times something shinier arrived. The guilt compounds.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOGS -->
+    <section class="page" id="page-blogs">
+      <div class="section-header">
+        <div class="section-tag">Writing</div>
+        <h2 class="section-title">Blogs</h2>
+        <p class="section-desc">Occasional long-form thoughts on engineering, design, and whatever else I can't stop thinking about. I write slowly and try to mean it.</p>
+      </div>
+      <div class="blog-list">
+        <div class="blog-item">
+          <div class="blog-meta"><span class="blog-date">Mar 2025</span><span class="blog-cat">Engineering</span></div>
+          <div class="blog-title">The Hidden Cost of Clever Code</div>
+          <div class="blog-excerpt">On the seductive pull of abstraction, and why the most maintainable systems tend to be the most boring ones. Cleverness is a debt you pay later, usually at the worst possible moment.</div>
+        </div>
+        <div class="blog-item">
+          <div class="blog-meta"><span class="blog-date">Jan 2025</span><span class="blog-cat">Design</span></div>
+          <div class="blog-title">Designing for Forgetting</div>
+          <div class="blog-excerpt">Interfaces should account for the fact that users forget almost everything. Here's how I think about building for real human memory rather than the idealised user who reads every tooltip.</div>
+        </div>
+        <div class="blog-item">
+          <div class="blog-meta"><span class="blog-date">Nov 2024</span><span class="blog-cat">Systems</span></div>
+          <div class="blog-title">What Ursula Le Guin Taught Me About Distributed Systems</div>
+          <div class="blog-excerpt">Anarchist utopias and Byzantine fault tolerance have more in common than you'd think. Both are about what happens when there's no single authority to appeal to.</div>
+        </div>
+        <div class="blog-item">
+          <div class="blog-meta"><span class="blog-date">Sep 2024</span><span class="blog-cat">Reflections</span></div>
+          <div class="blog-title">Four Years as a Professional Developer</div>
+          <div class="blog-excerpt">What I got wrong, what surprised me, and the one habit that made every year better than the last. Spoiler: it's embarrassingly simple and I resisted it for three years.</div>
+        </div>
+        <div class="blog-item">
+          <div class="blog-meta"><span class="blog-date">Jul 2024</span><span class="blog-cat">Engineering</span></div>
+          <div class="blog-title">Why I Stopped Writing Tests First</div>
+          <div class="blog-excerpt">A confession from a recovering TDD zealot, and what I do instead. I still write tests. I just no longer believe the order is sacred.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Page nav
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const t = link.dataset.page;
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      link.classList.add('active');
+      document.getElementById('page-' + t).classList.add('active');
+    });
+  });
+
+  // Project tabs
+  document.querySelectorAll('.proj-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const t = tab.dataset.proj;
+      document.querySelectorAll('.proj-tab').forEach(tb => tb.classList.remove('active'));
+      document.querySelectorAll('.proj-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('proj-' + t).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
