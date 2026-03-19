@@ -67,7 +67,7 @@
     .home-intro { font-size: 1rem; line-height: 1.85; color: #aaa; max-width: 540px; margin-bottom: 2rem; }
     .home-divider { width: 2.5rem; height: 1px; background: var(--border2); margin-bottom: 2rem; }
     .home-stats { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 1rem; margin-bottom: 2.4rem; }
-    .stat-item .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; line-height: 1; }
+    .stat-item .num { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 200; line-height: 1; }
     .stat-item .label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
     .arrow-list { margin: 0.4rem 0 0.6rem; }
     .arrow-list li { list-style: none; position: relative; padding-left: 1.2em; font-size: 0.92rem; color: #aaa; line-height: 1.9; }
@@ -161,7 +161,7 @@
         Trying to be a great engineer to make great solutions.
       </p>
       <div class="home-stats" style="margin-top: 0.1rem;">
-        <div class="stat-item"><div class="num">1</div><div class="label">Projects shipped</div></div>
+        <div class="stat-item"><div class="num">4</div><div class="label">Projects shipped</div></div>
         <div class="stat-item"><div class="num">1</div><div class="label">Skills learned</div></div>
         <div class="stat-item"><div class="num">∞</div><div class="label">Things failed at</div></div>
       </div>
@@ -193,6 +193,7 @@
 
       <div class="proj-tabs">
         <div class="proj-tab active" data-proj="obc">Small Satellite OBC</div>
+        <div class="proj-tab" data-proj="pid">PID Controller</div>
         <div class="proj-tab" data-proj="esp32">ESP32 Home Server (WIP)</div>
         <div class="proj-tab" data-proj="ak47">AK-47 3D Model</div>
       </div>
@@ -218,6 +219,7 @@
             <rect x="240" y="52" width="14" height="22" rx="2" fill="#555"/>
           </svg>
         </div>
+
         <div class="proj-info">
           <div class="proj-tag">Project · Embedded System</div>
           <div class="proj-name">CubeSat OBC</div>
@@ -225,6 +227,39 @@
           <div class="proj-stack">
             <span class="stack-tag">C++</span>
             <span class="stack-tag">FreeRTOS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-panel" id="proj-pid">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <circle cx="140" cy="87" r="12" fill="#444"/>
+            <circle cx="68"  cy="52" r="8"  fill="#333"/>
+            <circle cx="212" cy="48" r="8"  fill="#333"/>
+            <circle cx="52"  cy="128" r="8" fill="#333"/>
+            <circle cx="228" cy="128" r="8" fill="#333"/>
+            <circle cx="140" cy="152" r="7" fill="#2e2e2e"/>
+            <circle cx="100" cy="38"  r="6" fill="#2e2e2e"/>
+            <line x1="140" y1="87" x2="68"  y2="52"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="212" y2="48"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="52"  y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="228" y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="140" y2="152" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="68"  y1="52" x2="100" y2="38"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="68"  y1="52" x2="212" y2="48"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="52"  y1="128" x2="140" y2="152" stroke="#2e2e2e" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <div class="proj-info">
+          <div class="proj-tag">Project · Verilog</div>
+          <div class="proj-name">PID Control on FPGA</div>
+          <div class="proj-desc">Implementation of a PID controller using Verilog on an FPGA platform.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">Verilog</span>
+            <span class="stack-tag">FPGA</span>
           </div>
         </div>
       </div>
@@ -250,6 +285,7 @@
             <line x1="52"  y1="128" x2="140" y2="152" stroke="#2e2e2e" stroke-width="1"/>
           </svg>
         </div>
+
         <div class="proj-info">
           <div class="proj-tag">Test · Personal Project</div>
           <div class="proj-name">ESP32 Home Server (WIP)</div>
