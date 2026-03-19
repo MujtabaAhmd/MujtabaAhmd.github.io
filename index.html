@@ -9,14 +9,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #ffffff;
-      --surface:   #f5f5f5;
-      --surface2:  #ececec;
-      --border:    #d8d8d8;
-      --border2:   #bebebe;
-      --text:      #111111;
-      --muted:     #888888;
-      --muted2:    #aaaaaa;
+      --bg:        #111111;
+      --surface:   #1a1a1a;
+      --surface2:  #222222;
+      --border:    #2e2e2e;
+      --border2:   #3d3d3d;
+      --text:      #e8e8e8;
+      --muted:     #777777;
+      --muted2:    #555555;
       --sidebar-w: 220px;
     }
 
@@ -56,7 +56,7 @@
 
     /* Shared header */
     .section-header { margin-bottom: 2.8rem; }
-    .section-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .section-tag { font-family: 'DM Mono', monospace; font-weight: bolder; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
     .section-desc { margin-top: 0.7rem; font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
 
@@ -64,25 +64,14 @@
     .home-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
     .home-name { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 600; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.6rem; }
     .home-name em { font-style: italic; color: var(--muted); }
-    .home-intro { font-size: 1rem; line-height: 1.85; color: #444; max-width: 540px; margin-bottom: 2rem; }
+    .home-intro { font-size: 1rem; line-height: 1.85; color: #aaa; max-width: 540px; margin-bottom: 2rem; }
     .home-divider { width: 2.5rem; height: 1px; background: var(--border2); margin-bottom: 2rem; }
     .home-stats { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 1rem; margin-bottom: 2.4rem; }
     .stat-item .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; line-height: 1; }
     .stat-item .label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
     .arrow-list { margin: 0.4rem 0 0.6rem; }
-    .arrow-list li { list-style: none; position: relative; padding-left: 1.2em; font-size: 0.92rem; color: #444; line-height: 1.9; }
-    .arrow-list li::before { content: "➢"; position: absolute; left: 0; color: #444; font-size: 1em; }
-
-    /* ── EXPERIENCE ── */
-    .timeline { position: relative; }
-    .timeline::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 1px; background: var(--border); }
-    .exp-item { padding-left: 2.2rem; padding-bottom: 2.6rem; position: relative; }
-    .exp-item:last-child { padding-bottom: 0; }
-    .exp-item::before { content: ''; position: absolute; left: -4px; top: 0.45rem; width: 9px; height: 9px; border-radius: 50%; background: var(--text); border: 2px solid var(--bg); box-shadow: 0 0 0 1px var(--border2); }
-    .exp-period { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
-    .exp-role { font-size: 0.98rem; font-weight: 500; margin-bottom: 0.12rem; }
-    .exp-company { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.7rem; font-style: italic; }
-    .exp-desc { font-size: 0.84rem; color: #555; line-height: 1.75; }
+    .arrow-list li { list-style: none; position: relative; padding-left: 1.2em; font-size: 0.92rem; color: #aaa; line-height: 1.9; }
+    .arrow-list li::before { content: "➢"; position: absolute; left: 0; color: #aaa; font-size: 1em; }
 
     /* ── PROJECTS ── */
     .proj-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 2rem; overflow-x: auto; }
@@ -94,24 +83,24 @@
     .proj-image { width: 280px; flex-shrink: 0; aspect-ratio: 16/10; background: var(--surface); border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .proj-image svg { width: 100%; height: 100%; }
     .proj-info { flex: 1; min-width: 0; }
-    .proj-tag { font-family: 'DM Mono', monospace; font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .proj-tag { font-family: 'DM Mono', monospace; font-weight: bolder; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
     .proj-name { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 600; margin-bottom: 0.9rem; letter-spacing: -0.01em; }
-    .proj-desc { font-size: 0.86rem; color: #555; line-height: 1.8; margin-bottom: 1.2rem; }
+    .proj-desc { font-size: 0.86rem; color: #999; line-height: 1.8; margin-bottom: 1.2rem; }
     .proj-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
     .stack-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; padding: 0.22rem 0.55rem; border: 1px solid var(--border2); color: var(--muted); background: var(--surface); }
     .proj-link { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--text); padding-bottom: 1px; transition: opacity 0.15s; }
     .proj-link:hover { opacity: 0.45; }
 
     /* ── READING ── */
-    .reading-intro { font-size: 0.92rem; color: #555; line-height: 1.85; max-width: 580px; margin-bottom: 2.5rem; }
+    .reading-intro { font-size: 0.92rem; color: #999; line-height: 1.85; max-width: 580px; margin-bottom: 2.5rem; }
     .reading-section { margin-bottom: 2.4rem; }
-    .reading-section-title { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .reading-section-title { font-family: 'DM Mono', monospace; font-weight: bolder; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
     .book-entry-wrap { padding: 0.75rem 0; border-bottom: 1px solid var(--surface2); }
     .book-entry-wrap:last-child { border-bottom: none; }
     .book-meta { display: flex; align-items: baseline; gap: 1rem; }
-    .book-title-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; flex: 1; }
+    .book-title-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; flex: 1; }
     .book-author-text { font-size: 0.78rem; color: var(--muted); flex-shrink: 0; }
-    .book-note-text { margin-top: 0.2rem; font-size: 0.8rem; color: #777; line-height: 1.65; }
+    .book-note-text { margin-top: 0.2rem; font-size: 0.8rem; color: #888; line-height: 1.65; }
 
     /* ── BLOGS ── */
     .blog-list { display: flex; flex-direction: column; }
@@ -133,7 +122,7 @@
       transition: border-color 0.15s, opacity 0.15s;
     }
     .blog-title-link:hover { border-bottom-color: var(--text); opacity: 0.6; }
-    .blog-excerpt { font-size: 0.85rem; color: #666; line-height: 1.72; max-width: 560px; }
+    .blog-excerpt { font-size: 0.85rem; color: #777; line-height: 1.72; max-width: 560px; }
 
     .main::-webkit-scrollbar { width: 4px; }
     .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -144,8 +133,8 @@
 
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <div class="initials">MA</div>
-      <div class="tagline">Builder</div>
+      <div class="initials">M.A</div>
+      <div class="tagline">Builder • Innovator</div>
     </div>
     <nav>
       <div class="nav-label">Menu</div>
@@ -158,7 +147,7 @@
       <div class="socials">
         <a href="https://github.com/MujtabaAhmd" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/mujtabaahmadkh/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="mailto:muj.ahmad05@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
+        <a href="/cdn-cgi/l/email-protection#0c617966226d64616d683c394c6b616d6560226f6361" target="_blank" rel="noopener noreferrer">Email</a>
       </div>
     </div>
   </aside>
@@ -176,7 +165,7 @@
         <div class="stat-item"><div class="num">1</div><div class="label">Skills learned</div></div>
         <div class="stat-item"><div class="num">∞</div><div class="label">Things failed at</div></div>
       </div>
-      <p style="font-weight: bold; margin-top: 2rem;">Enthusiastic about <span style="color: #919191; font-weight: normal;">everything tech and innovation but right now:</span></p>
+      <p style="font-weight: bold; margin-top: 2rem;">Enthusiastic about <span style="color: #666; font-weight: normal;">everything tech and innovation but right now:</span></p>
       <ul class="arrow-list" style="margin-top: 0rem;">
         <li>Embedded Systems and Flight Computers</li>
         <li>Rocket Engineering</li>
@@ -184,7 +173,7 @@
       </ul>
       <p style="font-weight: bold;">Messing around with</p>
       <ul class="arrow-list">
-        <li>3d Modeling<span style="color: #919191;"> (5+ years)</span></li>
+        <li>3d Modeling<span style="color: #666;"> (5+ years)</span></li>
         <li>Social Media Management</li>
         <li>Video Editing</li>
       </ul>
@@ -211,22 +200,22 @@
       <div class="proj-panel active" id="proj-obc">
         <div class="proj-image">
           <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
-            <rect width="280" height="175" fill="#f0f0f0"/>
-            <rect x="18" y="22" width="244" height="131" rx="3" fill="#e4e4e4"/>
-            <rect x="18" y="22" width="244" height="18" rx="3" fill="#d4d4d4"/>
-            <circle cx="30" cy="31" r="4" fill="#bbb"/>
-            <circle cx="44" cy="31" r="4" fill="#bbb"/>
-            <circle cx="58" cy="31" r="4" fill="#bbb"/>
-            <rect x="28" y="52" width="70" height="5" rx="2" fill="#aaa"/>
-            <rect x="28" y="64" width="180" height="4" rx="2" fill="#ccc"/>
-            <rect x="28" y="73" width="160" height="4" rx="2" fill="#ccc"/>
-            <rect x="28" y="82" width="190" height="4" rx="2" fill="#ccc"/>
-            <rect x="28" y="95" width="55" height="4" rx="2" fill="#bbb"/>
-            <rect x="28" y="104" width="140" height="4" rx="2" fill="#ccc"/>
-            <rect x="28" y="113" width="120" height="4" rx="2" fill="#ccc"/>
-            <rect x="28" y="122" width="155" height="4" rx="2" fill="#ccc"/>
-            <rect x="240" y="52" width="14" height="80" rx="2" fill="#d0d0d0"/>
-            <rect x="240" y="52" width="14" height="22" rx="2" fill="#aaa"/>
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <rect x="18" y="22" width="244" height="131" rx="3" fill="#222"/>
+            <rect x="18" y="22" width="244" height="18" rx="3" fill="#2a2a2a"/>
+            <circle cx="30" cy="31" r="4" fill="#3d3d3d"/>
+            <circle cx="44" cy="31" r="4" fill="#3d3d3d"/>
+            <circle cx="58" cy="31" r="4" fill="#3d3d3d"/>
+            <rect x="28" y="52" width="70" height="5" rx="2" fill="#555"/>
+            <rect x="28" y="64" width="180" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="73" width="160" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="82" width="190" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="95" width="55" height="4" rx="2" fill="#3d3d3d"/>
+            <rect x="28" y="104" width="140" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="113" width="120" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="122" width="155" height="4" rx="2" fill="#333"/>
+            <rect x="240" y="52" width="14" height="80" rx="2" fill="#2e2e2e"/>
+            <rect x="240" y="52" width="14" height="22" rx="2" fill="#555"/>
           </svg>
         </div>
         <div class="proj-info">
@@ -243,22 +232,22 @@
       <div class="proj-panel" id="proj-esp32">
         <div class="proj-image">
           <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
-            <rect width="280" height="175" fill="#f0f0f0"/>
-            <circle cx="140" cy="87" r="12" fill="#888"/>
-            <circle cx="68"  cy="52" r="8"  fill="#aaa"/>
-            <circle cx="212" cy="48" r="8"  fill="#aaa"/>
-            <circle cx="52"  cy="128" r="8" fill="#aaa"/>
-            <circle cx="228" cy="128" r="8" fill="#aaa"/>
-            <circle cx="140" cy="152" r="7" fill="#bbb"/>
-            <circle cx="100" cy="38"  r="6" fill="#bbb"/>
-            <line x1="140" y1="87" x2="68"  y2="52"  stroke="#ccc" stroke-width="1.5"/>
-            <line x1="140" y1="87" x2="212" y2="48"  stroke="#ccc" stroke-width="1.5"/>
-            <line x1="140" y1="87" x2="52"  y2="128" stroke="#ccc" stroke-width="1.5"/>
-            <line x1="140" y1="87" x2="228" y2="128" stroke="#ccc" stroke-width="1.5"/>
-            <line x1="140" y1="87" x2="140" y2="152" stroke="#ccc" stroke-width="1.5"/>
-            <line x1="68"  y1="52" x2="100" y2="38"  stroke="#ddd" stroke-width="1"/>
-            <line x1="68"  y1="52" x2="212" y2="48"  stroke="#ddd" stroke-width="1"/>
-            <line x1="52"  y1="128" x2="140" y2="152" stroke="#ddd" stroke-width="1"/>
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <circle cx="140" cy="87" r="12" fill="#444"/>
+            <circle cx="68"  cy="52" r="8"  fill="#333"/>
+            <circle cx="212" cy="48" r="8"  fill="#333"/>
+            <circle cx="52"  cy="128" r="8" fill="#333"/>
+            <circle cx="228" cy="128" r="8" fill="#333"/>
+            <circle cx="140" cy="152" r="7" fill="#2e2e2e"/>
+            <circle cx="100" cy="38"  r="6" fill="#2e2e2e"/>
+            <line x1="140" y1="87" x2="68"  y2="52"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="212" y2="48"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="52"  y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="228" y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="140" y2="152" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="68"  y1="52" x2="100" y2="38"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="68"  y1="52" x2="212" y2="48"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="52"  y1="128" x2="140" y2="152" stroke="#2e2e2e" stroke-width="1"/>
           </svg>
         </div>
         <div class="proj-info">
@@ -276,20 +265,20 @@
       <div class="proj-panel" id="proj-ak47">
         <div class="proj-image">
           <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
-            <rect width="280" height="175" fill="#f0f0f0"/>
-            <rect x="18" y="22" width="244" height="36" rx="3" fill="#e4e4e4"/>
-            <rect x="28" y="33" width="65" height="5" rx="2" fill="#bbb"/>
-            <rect x="192" y="30" width="58" height="12" rx="3" fill="#999"/>
-            <rect x="18" y="68" width="116" height="85" rx="3" fill="#e4e4e4"/>
-            <rect x="28" y="80" width="55" height="5" rx="2" fill="#bbb"/>
-            <rect x="28" y="93" width="90" height="32" rx="3" fill="#d8d8d8"/>
-            <rect x="28" y="133" width="70" height="4" rx="2" fill="#ccc"/>
-            <rect x="146" y="68" width="116" height="38" rx="3" fill="#e4e4e4"/>
-            <rect x="156" y="80" width="55" height="5" rx="2" fill="#bbb"/>
-            <rect x="156" y="91" width="80" height="4" rx="2" fill="#ccc"/>
-            <rect x="146" y="115" width="116" height="38" rx="3" fill="#e4e4e4"/>
-            <rect x="156" y="127" width="55" height="5" rx="2" fill="#bbb"/>
-            <rect x="156" y="138" width="65" height="4" rx="2" fill="#ccc"/>
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <rect x="18" y="22" width="244" height="36" rx="3" fill="#222"/>
+            <rect x="28" y="33" width="65" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="192" y="30" width="58" height="12" rx="3" fill="#444"/>
+            <rect x="18" y="68" width="116" height="85" rx="3" fill="#222"/>
+            <rect x="28" y="80" width="55" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="28" y="93" width="90" height="32" rx="3" fill="#2a2a2a"/>
+            <rect x="28" y="133" width="70" height="4" rx="2" fill="#333"/>
+            <rect x="146" y="68" width="116" height="38" rx="3" fill="#222"/>
+            <rect x="156" y="80" width="55" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="156" y="91" width="80" height="4" rx="2" fill="#333"/>
+            <rect x="146" y="115" width="116" height="38" rx="3" fill="#222"/>
+            <rect x="156" y="127" width="55" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="156" y="138" width="65" height="4" rx="2" fill="#333"/>
           </svg>
         </div>
         <div class="proj-info">
@@ -379,7 +368,7 @@
   </main>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
       const t = link.dataset.page;
