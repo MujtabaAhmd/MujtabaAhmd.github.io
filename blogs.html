@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mujtaba Ahmad</title>
+  <title>Blogs — Mujtaba Ahmad</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,16 +35,32 @@
     .page { padding: 4rem 5vw 5rem; max-width: 820px; animation: fadeUp 0.35s ease both; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-    .home-name { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 600; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.6rem; }
-    .home-name em { font-style: italic; color: var(--muted); }
-    .home-intro { font-size: 1rem; line-height: 1.85; color: #aaa; max-width: 540px; margin-bottom: 2rem; }
-    .home-divider { width: 2.5rem; height: 1px; background: var(--border2); margin-bottom: 2rem; }
-    .home-stats { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 1rem; margin-bottom: 2.4rem; }
-    .stat-item .num { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 200; line-height: 1; }
-    .stat-item .label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
-    .arrow-list { margin: 0.4rem 0 0.6rem; }
-    .arrow-list li { list-style: none; position: relative; padding-left: 1.2em; font-size: 0.92rem; color: #aaa; line-height: 1.9; }
-    .arrow-list li::before { content: "➢"; position: absolute; left: 0; color: #aaa; }
+    .section-header { margin-bottom: 2.8rem; }
+    .section-tag { font-family: 'DM Mono', monospace; font-weight: bolder; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+    .section-desc { margin-top: 0.7rem; font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+    .blog-list { display: flex; flex-direction: column; }
+    .blog-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+    .blog-item:first-child { border-top: 1px solid var(--border); }
+    .blog-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.45rem; }
+    .blog-date { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted2); letter-spacing: 0.08em; }
+    .blog-cat { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .blog-title-link {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s, opacity 0.15s;
+    }
+    .blog-title-link:hover { border-bottom-color: var(--text); opacity: 0.6; }
+    .blog-excerpt { font-size: 0.85rem; color: #777; line-height: 1.72; max-width: 560px; }
+
     .main::-webkit-scrollbar { width: 4px; }
     .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
   </style>
@@ -58,10 +74,10 @@
     </div>
     <nav>
       <div class="nav-label">Menu</div>
-      <a href="index.html" class="nav-link active"><span class="icon">⌂</span> Home</a>
+      <a href="index.html" class="nav-link"><span class="icon">⌂</span> Home</a>
       <a href="projects.html" class="nav-link"><span class="icon">◻</span> Projects</a>
       <a href="recommendations.html" class="nav-link"><span class="icon">◎</span> Recommendations</a>
-      <a href="blogs.html" class="nav-link"><span class="icon">✦</span> Blogs</a>
+      <a href="blogs.html" class="nav-link active"><span class="icon">✦</span> Blogs</a>
     </nav>
     <div class="sidebar-footer">
       <div class="socials">
@@ -74,27 +90,20 @@
 
   <main class="main">
     <section class="page">
-      <h1 class="home-name">Mujtaba&#x200E; <em>Ahmad</em></h1>
-      <p class="home-intro" style="margin-bottom:0.2rem;">Trying to be a great engineer to make great solutions.</p>
-      <div class="home-stats" style="margin-top: 0.1rem;">
-        <div class="stat-item"><div class="num">4</div><div class="label">Projects shipped</div></div>
-        <div class="stat-item"><div class="num">1</div><div class="label">Skills learned</div></div>
-        <div class="stat-item"><div class="num">∞</div><div class="label">Things failed at</div></div>
+      <div class="section-header">
+        <div class="section-tag">Writing</div>
+        <h2 class="section-title">Blogs</h2>
+        <p class="section-desc">Occasional long-form thoughts on engineering, design, and whatever else I can't stop thinking about.</p>
       </div>
-      <p style="font-weight: bold; margin-top: 2rem;">Enthusiastic about <span style="color: #666; font-weight: normal;">everything tech and innovation but right now:</span></p>
-      <ul class="arrow-list" style="margin-top: 0;">
-        <li>Embedded Systems and Flight Computers</li>
-        <li>Rocket Engineering</li>
-        <li>Manufacturing</li>
-      </ul>
-      <p style="font-weight: bold;">Messing around with</p>
-      <ul class="arrow-list">
-        <li>3d Modeling<span style="color: #666;"> (5+ years)</span></li>
-        <li>Social Media Management</li>
-        <li>Video Editing</li>
-      </ul>
-      <div class="home-divider"></div>
-      <p class="home-intro" style="font-size:0.9rem; margin-bottom:0;">Backlog never finishes</p>
+      <div class="blog-list">
+
+        <div class="blog-item">
+          <div class="blog-meta"><span class="blog-date">Mar 2025</span><span class="blog-cat">Psychology</span></div>
+          <a href="blog-confirmation-bias.html" class="blog-title-link">My Decision is Correct, Is It?</a>
+          <div class="blog-excerpt">Most of our decisions are based on emotions, not logic. On motivated reasoning, falsification, and the frames that help you see past your own bias.</div>
+        </div>
+        
+      </div>
     </section>
   </main>
 </div>

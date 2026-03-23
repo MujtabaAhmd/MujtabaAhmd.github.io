@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — Mujtaba Ahmad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #111111; --surface: #1a1a1a; --surface2: #222222;
+      --border: #2e2e2e; --border2: #3d3d3d;
+      --text: #e8e8e8; --muted: #777777; --muted2: #555555;
+      --sidebar-w: 220px;
+    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+    .shell { display: flex; min-height: 100vh; }
+
+    .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; padding: 2.5rem 0; }
+    .sidebar-brand { padding: 0 1.6rem 2.2rem; border-bottom: 1px solid var(--border); }
+    .sidebar-brand .initials { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--text); line-height: 1; letter-spacing: -0.02em; }
+    .sidebar-brand .tagline { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 0.45rem; }
+    nav { padding: 1.6rem 0; flex: 1; }
+    .nav-label { font-family: 'DM Mono', monospace; font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted2); padding: 0 1.6rem; margin-bottom: 0.6rem; }
+    .nav-link { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 1.6rem; font-size: 0.84rem; font-weight: 400; color: var(--muted); border-left: 2px solid transparent; text-decoration: none; transition: background 0.15s, color 0.15s; }
+    .nav-link .icon { font-size: 0.8rem; width: 1rem; text-align: center; flex-shrink: 0; }
+    .nav-link:hover { background: var(--surface2); color: var(--text); }
+    .nav-link.active { color: var(--text); border-left-color: var(--text); background: var(--surface2); font-weight: 500; }
+    .sidebar-footer { padding: 1.4rem 1.6rem 0; border-top: 1px solid var(--border); }
+    .socials { display: flex; gap: 1rem; }
+    .socials a { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.15s; }
+    .socials a:hover { color: var(--text); }
+
+    .main { flex: 1; overflow-y: auto; }
+    .page { padding: 4rem 5vw 5rem; max-width: 820px; animation: fadeUp 0.35s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-header { margin-bottom: 2.8rem; }
+    .section-tag { font-family: 'DM Mono', monospace; font-weight: bolder; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+    .section-desc { margin-top: 0.7rem; font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+    .proj-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 2rem; overflow-x: auto; }
+    .proj-tab { padding: 0.65rem 1.2rem; font-size: 0.82rem; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.15s, border-color 0.15s; margin-bottom: -1px; user-select: none; }
+    .proj-tab:hover { color: var(--text); }
+    .proj-tab.active { color: var(--text); border-bottom-color: var(--text); font-weight: 500; }
+    .proj-panel { display: none; }
+    .proj-panel.active { display: flex; gap: 2.5rem; align-items: flex-start; animation: fadeUp 0.3s ease both; }
+    .proj-image { width: 280px; flex-shrink: 0; aspect-ratio: 16/10; background: var(--surface); border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .proj-image svg { width: 100%; height: 100%; }
+    .proj-info { flex: 1; min-width: 0; }
+    .proj-tag { font-family: 'DM Mono', monospace; font-weight: bolder; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .proj-name { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 600; margin-bottom: 0.9rem; letter-spacing: -0.01em; }
+    .proj-desc { font-size: 0.86rem; color: #999; line-height: 1.8; margin-bottom: 1.2rem; }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+    .stack-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; padding: 0.22rem 0.55rem; border: 1px solid var(--border2); color: var(--muted); background: var(--surface); }
+    .proj-link { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--text); padding-bottom: 1px; transition: opacity 0.15s; }
+    .proj-link:hover { opacity: 0.45; }
+
+    .main::-webkit-scrollbar { width: 4px; }
+    .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="initials">M.A</div>
+      <div class="tagline">Builder • Innovator</div>
+    </div>
+    <nav>
+      <div class="nav-label">Menu</div>
+      <a href="index.html" class="nav-link"><span class="icon">⌂</span> Home</a>
+      <a href="projects.html" class="nav-link active"><span class="icon">◻</span> Projects</a>
+      <a href="recommendations.html" class="nav-link"><span class="icon">◎</span> Recommendations</a>
+      <a href="blogs.html" class="nav-link"><span class="icon">✦</span> Blogs</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="socials">
+        <a href="https://github.com/MujtabaAhmd" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/mujtabaahmadkh/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="/cdn-cgi/l/email-protection#0c617966226d64616d683c394c6b616d6560226f6361" target="_blank" rel="noopener noreferrer">Email</a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="page">
+      <div class="section-header">
+        <div class="section-tag">Work</div>
+        <h2 class="section-title">Projects</h2>
+        <p class="section-desc">Selected side-projects and open-source work</p>
+      </div>
+
+      <div class="proj-tabs">
+        <div class="proj-tab active" data-proj="obc">Small Satellite OBC</div>
+        <div class="proj-tab" data-proj="pid">PID Controller</div>
+        <div class="proj-tab" data-proj="esp32">ESP32 Home Server (WIP)</div>
+        <div class="proj-tab" data-proj="ak47">AK-47 3D Model</div>
+      </div>
+
+      <div class="proj-panel active" id="proj-obc">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <rect x="18" y="22" width="244" height="131" rx="3" fill="#222"/>
+            <rect x="18" y="22" width="244" height="18" rx="3" fill="#2a2a2a"/>
+            <circle cx="30" cy="31" r="4" fill="#3d3d3d"/>
+            <circle cx="44" cy="31" r="4" fill="#3d3d3d"/>
+            <circle cx="58" cy="31" r="4" fill="#3d3d3d"/>
+            <rect x="28" y="52" width="70" height="5" rx="2" fill="#555"/>
+            <rect x="28" y="64" width="180" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="73" width="160" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="82" width="190" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="95" width="55" height="4" rx="2" fill="#3d3d3d"/>
+            <rect x="28" y="104" width="140" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="113" width="120" height="4" rx="2" fill="#333"/>
+            <rect x="28" y="122" width="155" height="4" rx="2" fill="#333"/>
+            <rect x="240" y="52" width="14" height="80" rx="2" fill="#2e2e2e"/>
+            <rect x="240" y="52" width="14" height="22" rx="2" fill="#555"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Project · Embedded System</div>
+          <div class="proj-name">CubeSat OBC</div>
+          <div class="proj-desc">A Small satellite onboard computer for handling flight operations and data processing. Integrated on SAM Ultx V71 utilizing FreeRTOS.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">C++</span>
+            <span class="stack-tag">FreeRTOS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-panel" id="proj-pid">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <circle cx="140" cy="87" r="12" fill="#444"/>
+            <circle cx="68"  cy="52" r="8"  fill="#333"/>
+            <circle cx="212" cy="48" r="8"  fill="#333"/>
+            <circle cx="52"  cy="128" r="8" fill="#333"/>
+            <circle cx="228" cy="128" r="8" fill="#333"/>
+            <circle cx="140" cy="152" r="7" fill="#2e2e2e"/>
+            <circle cx="100" cy="38"  r="6" fill="#2e2e2e"/>
+            <line x1="140" y1="87" x2="68"  y2="52"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="212" y2="48"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="52"  y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="228" y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="140" y2="152" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="68"  y1="52" x2="100" y2="38"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="68"  y1="52" x2="212" y2="48"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="52"  y1="128" x2="140" y2="152" stroke="#2e2e2e" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Project · Verilog</div>
+          <div class="proj-name">PID Control on FPGA</div>
+          <div class="proj-desc">Implementation of a PID controller using Verilog on an FPGA platform.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">Verilog</span>
+            <span class="stack-tag">FPGA</span>
+          </div>
+          <a href="https://github.com/MujtabaAhmd/PID_Verilog" class="proj-link" target="_blank">Github Repo →</a>
+        </div>
+      </div>
+
+      <div class="proj-panel" id="proj-esp32">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <circle cx="140" cy="87" r="12" fill="#444"/>
+            <circle cx="68"  cy="52" r="8"  fill="#333"/>
+            <circle cx="212" cy="48" r="8"  fill="#333"/>
+            <circle cx="52"  cy="128" r="8" fill="#333"/>
+            <circle cx="228" cy="128" r="8" fill="#333"/>
+            <circle cx="140" cy="152" r="7" fill="#2e2e2e"/>
+            <circle cx="100" cy="38"  r="6" fill="#2e2e2e"/>
+            <line x1="140" y1="87" x2="68"  y2="52"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="212" y2="48"  stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="52"  y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="228" y2="128" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="140" y1="87" x2="140" y2="152" stroke="#3d3d3d" stroke-width="1.5"/>
+            <line x1="68"  y1="52" x2="100" y2="38"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="68"  y1="52" x2="212" y2="48"  stroke="#2e2e2e" stroke-width="1"/>
+            <line x1="52"  y1="128" x2="140" y2="152" stroke="#2e2e2e" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">Test · Personal Project</div>
+          <div class="proj-name">ESP32 Home Server (WIP)</div>
+          <div class="proj-desc">A home server built using the ESP32 microcontroller, designed for lightweight IoT applications and local automation. I can access my files without giving my data to big <strong>G</strong> or big <strong>M</strong>.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">ESPRESSIF</span>
+            <span class="stack-tag">USB MSC</span>
+            <span class="stack-tag">File Systems</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-panel" id="proj-ak47">
+        <div class="proj-image">
+          <svg viewBox="0 0 280 175" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="175" fill="#1a1a1a"/>
+            <rect x="18" y="22" width="244" height="36" rx="3" fill="#222"/>
+            <rect x="28" y="33" width="65" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="192" y="30" width="58" height="12" rx="3" fill="#444"/>
+            <rect x="18" y="68" width="116" height="85" rx="3" fill="#222"/>
+            <rect x="28" y="80" width="55" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="28" y="93" width="90" height="32" rx="3" fill="#2a2a2a"/>
+            <rect x="28" y="133" width="70" height="4" rx="2" fill="#333"/>
+            <rect x="146" y="68" width="116" height="38" rx="3" fill="#222"/>
+            <rect x="156" y="80" width="55" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="156" y="91" width="80" height="4" rx="2" fill="#333"/>
+            <rect x="146" y="115" width="116" height="38" rx="3" fill="#222"/>
+            <rect x="156" y="127" width="55" height="5" rx="2" fill="#3d3d3d"/>
+            <rect x="156" y="138" width="65" height="4" rx="2" fill="#333"/>
+          </svg>
+        </div>
+        <div class="proj-info">
+          <div class="proj-tag">3D Modeling · Blender</div>
+          <div class="proj-name">AK47 Model</div>
+          <div class="proj-desc">Hobby project to create a detailed 3D model of an AK47 rifle.</div>
+          <div class="proj-stack">
+            <span class="stack-tag">Blender 3D</span>
+          </div>
+          <a href="https://mujtabaahmad.artstation.com/" class="proj-link" target="_blank">More models →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  document.querySelectorAll('.proj-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const t = tab.dataset.proj;
+      document.querySelectorAll('.proj-tab').forEach(tb => tb.classList.remove('active'));
+      document.querySelectorAll('.proj-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('proj-' + t).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
