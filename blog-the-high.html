@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The High Agency Mindset — Mujtaba Ahmad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #111111;
+      --surface: #1a1a1a;
+      --border:  #2e2e2e;
+      --text:    #e8e8e8;
+      --muted:   #777777;
+      --muted2:  #555555;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100%;
+    }
+
+    /* ── Top nav bar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topbar-back {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: bolder;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .topbar-back:hover { color: var(--text); }
+
+    .topbar-site {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Article layout ── */
+    .article-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem clamp(1.5rem, 6vw, 2rem) 6rem;
+    }
+
+    /* ── Post header ── */
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .post-date {
+      font-family: 'DM Mono', monospace;
+      font-weight: bolder;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--muted2);
+    }
+
+    .post-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .post-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .post-subtitle {
+      font-size: 1rem;
+      color: #888;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    .post-divider {
+      width: 2.5rem;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Post body typography ── */
+    .post-body { font-size: 0.97rem; line-height: 1.9; color: #bbb; }
+
+    .post-body p { margin-bottom: 1.5rem; }
+    .post-body p:last-child { margin-bottom: 0; }
+
+    .post-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 2.5rem 0 0.8rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .post-body h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin: 2rem 0 0.6rem;
+      color: var(--text);
+    }
+
+    .post-body blockquote {
+      border-left: 2px solid var(--border);
+      padding: 0.5rem 0 0.5rem 1.4rem;
+      margin: 2rem 0;
+      color: #777;
+      font-style: italic;
+    }
+
+    .post-body code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      background: var(--surface);
+      padding: 0.15rem 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+
+    .post-body ul, .post-body ol {
+      padding-left: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-body li { margin-bottom: 0.6rem; }
+
+    .post-body a {
+      color: var(--text);
+      text-underline-offset: 3px;
+      transition: opacity 0.15s;
+    }
+    .post-body a:hover { opacity: 0.5; }
+
+    /* ── Footer ── */
+    .post-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .post-footer-back {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 1px;
+      transition: opacity 0.15s;
+    }
+    .post-footer-back:hover { opacity: 0.45; }
+
+    .post-footer-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <a href="blogs.html" class="topbar-back">← All Posts</a>
+    <a href="index.html" class="topbar-site">MA</a>
+  </header>
+
+  <!-- Article -->
+  <main class="article-wrap">
+
+    <div class="post-meta">
+      <span class="post-date">May 2025</span>
+      <span class="post-cat">Mindset</span>
+    </div>
+
+    <h1 class="post-title">The High</h1>
+
+    <p class="post-subtitle">
+      High agency mindset: The key to great work
+    </p>
+
+    <div class="post-divider"></div>
+
+    <div class="post-body">
+
+      <p>
+        Most people I know are low agency. They might have ambition, they would want to do something great in their lives. Might have even tried but there is a psychology behind doing great work. A set of common qualities you would see in the predecessors of great work. They all were high agency.
+      </p>
+
+      <p>
+        High agency people are the ones who refuse to accept the circumstances they have been given. When it is said this is impossible, they don't stop there but find a way to make it work. Low agency people on the other hand, accept the circumstances as they are. Simply having an ambition or a vision does not make it true or for some even worthwhile to pursue. It is quite obvious when you want to do great work, you will have obstacles, you will feel the river pushing you in the other direction. This is where you need to have high agency. High agency is a mindset that forces a person to change the world.
+      </p>
+
+      <p>Extremely impactful people were high agency — take the example of:</p>
+
+      <p>
+        <strong>Umar ibn al-Khattab (R.A):</strong> As Caliph, he reshaped the geopolitical landscape of the 7th century by refusing to let traditional tribal structures limit his vision, instead developing entirely new legal, welfare, and administrative systems that allowed a young state to successfully defeat two collapsing world empires simultaneously.
+      </p>
+
+      <p>
+        <strong>Allama Iqbal:</strong> Rejecting the pervasive defeatism of a colonized population, he used his philosophical poetry to revive the concept of Khudi (selfhood/agency), actively waking an entire continent from intellectual stagnation and single-handedly conceptualizing the political reality of a separate homeland for Muslims.
+      </p>
+
+      <p>
+        <strong>Steve Jobs:</strong> He completely rejected standard engineering and manufacturing limitations by treating "impossible" timelines as mere mental blocks. Instead of letting current technology dictate what Apple built, he bent reality to force his teams to invent entirely new standards.
+      </p>
+
+      <p>
+        These people are just unique. They are out of the ordinary, exception you might say. There is a saying: <em>"To be exceptionally good, you have to be the exception."</em> Put into contrast, the low agency person will just be going with the flow of the river. He would not be challenging the current norms to build his vision.
+      </p>
+
+      <h2>3 Traits of High Agency People</h2>
+
+      <ul>
+        <li>High bias to action</li>
+        <li>Clear thinking</li>
+        <li>Questioning the impossible</li>
+      </ul>
+
+      <p>
+        Steve Jobs was relentless. At the launch of Macintosh, he famously took a marker and signed the inside of the computer chassis alongside his team, physically committing to a hard launch deadline because he believed an imperfect product in the market was infinitely better than a perfect concept on a whiteboard. His high bias to action led his greatness. You can keep on writing ideas but without execution it is just a thought which denotes nothing. In today's startup landscape, execution is everything.
+      </p>
+
+      <p>
+        Umar ibn al-Khattab's clear thinking led him to build whole new governance systems from scratch according to the need of the time. He did not run his khilafah like a nomadic Arab tribe but an empire — as he understood without a system, all will collapse very quickly.
+      </p>
+
+      <p>
+        Iqbal was on the fore front of questioning the status quo with his poetry and writing. His works developed the mindset of Khudi in the whole subcontinent, by which even the British were astonished. At that time of colonialism, no one could dare question the British — but Allama revived the thought of nation state for the Muslims.
+      </p>
+
+      <p>
+        A low agency person will not have been able to think of these things let alone pull one off. They are constrained by the "normal" behavior. The urge to fit in the society and earn their pedestal rather than create their own pedestals. This creates a barrier for the person. The definition of great is subjective, it is compared to the normal — so you are going to do great work if your ceiling is the normal. Traits 2 and 3 are the ones that break this ceiling for you. You do not accept the circumstances by saying "it is what it is," rather fight to either change them or workaround them by thinking clearly and devising a strategy. You can't just say that this is impossible — you think using first principles and defeat the possibility of impossibility. Break down each problem to the fundamentals and if it doesn't defy physics then it can be done.
+      </p>
+
+      <blockquote>
+        "Physics is the law. Everything else is a recommendation." — <em>Elon Musk's engineering principle</em>
+      </blockquote>
+
+      <p>
+        Does the solution defy the laws of physics? No? Move forward with it. They do not keep pondering about the solution and trying to find the best one but act on it as well.
+      </p>
+
+      <p>
+        This mindset is a type of high you have to be in. The sheer relentlessness and bias to execute gives them the edge that even luck is on their side. The sheer volume reduces the risk by a huge margin. This mindset works at all scales. Consider this: a sales person is reaching out to 10 people a day — compare that to the one who is reaching out to 1000 a day. Who is going to have more closes? With a high amount of volume, you have the ability to iterate fast and improve as well due to your first 2 traits. You have a tighter feedback loop and you keep on iterating for improvement.
+      </p>
+
+      <p>
+        This is all a mindset shift and widening your worldview. The thing is you don't have to constrain yourself to the circumstances. Look beyond them and be delusional in the possibilities.
+      </p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a href="index.html" class="post-footer-back">← Back to site</a>
+      <span class="post-footer-author">Mujtaba Ahmad</span>
+    </footer>
+
+  </main>
+
+</body>
+</html>
